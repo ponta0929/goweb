@@ -17,13 +17,13 @@ type Page struct {
 
 //save() ページ情報をタイトル名でファイルに保存する
 func (p *Page) save() error {
-	filename := p.Title + ".txt"
+	filename := "../static/" + p.Title + ".txt"
 	return ioutil.WriteFile(filename, p.Body, 0600)
 }
 
 //LoadPage 保存したページを読み込む
 func LoadPage(title string) (*Page, error) {
-	filename := title + ".txt"
+	filename := "../static/" + title + ".txt"
 	body, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return nil, err

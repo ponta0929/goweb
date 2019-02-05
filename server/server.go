@@ -12,6 +12,8 @@ import (
 
 //main()
 func main() {
-	http.HandleFunc("/", handler.SampleHandler)
+	//http.HandleFunc("/", handler.SampleHandler)
+	http.HandleFunc("/view/", handler.ViewHandler)
+	http.HandleFunc("/edit/", handler.EditHandler)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
