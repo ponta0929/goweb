@@ -17,17 +17,21 @@ func SampleHandler(w http.ResponseWriter, r *http.Request) {
 //ViewHandler func(w http.ResponseWriter, r *http.Request)
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	title := r.URL.Path[len("/view/"):]
-	p, _ := class.LoadPage(title)
-	fmt.Fprintf(w, "<h1>%s</h1><div>%s</div>", p.Title, p.Body)
+	t, _ := template.ParseFiles("../static/view.html")
+	renderTemplate(t, w, title)
 }
 
 //EditHandler func
 func EditHandler(w http.ResponseWriter, r *http.Request) {
 	title := r.URL.Path[len("/edit/"):]
+	t, _ := template.ParseFiles("../static/edit.html")
+	renderTemplate(t, w, title)
+}
+
+func renderTemplate(t *template.Template, w http.ResponseWriter, title string) {
 	p, err := class.LoadPage(title)
 	if err != nil {
 		p = &class.Page{Title: title}
 	}
-	t, _ := template.ParseFiles("../static/edit.html")
 	t.Execute(w, p)
 }
